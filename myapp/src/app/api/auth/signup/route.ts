@@ -1,25 +1,24 @@
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import { createUser,findUserByEmail } from '@/services/userService';
+import { hash } from "bcryptjs";
 
-const prisma = new PrismaClient();
+export async function POST(req: Request){
+    try{
+      const {name,email,password} = await req.json();
 
-export async function POST(request: Request) {
-  try {
-    const { name, email, password } = await request.json();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await prisma.user.create({
-        data : {
-            name,
-            email,
-            password : hashedPassword,
-        }
-    })
-    return NextResponse.json({
-        message: "User created successfully",
-    })
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-  }
+    if(!name || !email || !password){
+        return NextResponse.json({message: "Missing required fields"}, {status: 400})
+    }
+
+    const existing = await findUserByEmail(email)
+    if(existing) return NextResponse.json({message : "User already exits"}, {status: 400})
+
+    const hashedPassword = await hash(password,12)
+
+    const user  = await createUser(name,email,hashedPassword)
+
+    return NextResponse.json({message: "User Created"}, {status: 201})  
+    }catch(error){
+        return NextResponse.json({message: "Internal Error"}, {status: 500})
+    }
 }
