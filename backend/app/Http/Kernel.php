@@ -10,7 +10,7 @@ class Kernel extends HttpKernel
      * The application's global HTTP middleware stack.
      */
     protected $middleware = [
-        // middleware global เช่น \App\Http\Middleware\CheckForMaintenanceMode::class
+        \Illuminate\Http\Middleware\HandleCors::class,
     ];
 
     /**
