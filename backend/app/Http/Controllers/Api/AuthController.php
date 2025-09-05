@@ -30,6 +30,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:userslogin',
+        'password' => 'required|string|min:8',
+        ]);
 
         $token = $this->generateToken($user);
 

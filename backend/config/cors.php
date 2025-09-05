@@ -1,7 +1,6 @@
 <?php
-
 return [
-    'paths' => ['register', 'login'],
+    'paths' => ['api/*'],  // เปลี่ยนเป็นแบบนี้
     'allowed_methods' => ['*'],
     'allowed_origins' => ['http://localhost:3000'],
     'allowed_origins_patterns' => [],
@@ -10,5 +9,3 @@ return [
     'max_age' => 0,
     'supports_credentials' => true,
 ];
-
-
