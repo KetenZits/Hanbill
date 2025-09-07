@@ -19,13 +19,13 @@ export default function RegisterPage() {
         localStorage.setItem("token", data.token);
         alert("สมัครเสร็จแล้ว! ✅");
         // redirect ไป dashboard
-        window.location.href = "/dashboard";
+        window.location.href = "/login";
       } else {
         alert("สมัครไม่สำเร็จ ❌");
       }
     } catch (err) {
       console.error(err);
-      alert("มี error เกิดขึ้น");
+      alert("มี error เกิดขึ้น"); 
     } finally {
       setLoading(false);
     }
@@ -37,14 +37,14 @@ export default function RegisterPage() {
         onSubmit={handleRegister}
         className="bg-white p-6 rounded-lg shadow-md w-96"
       >
-        <h2 className="text-2xl font-bold mb-4">Register</h2>
+        <h2 className="text-2xl font-bold mb-4 text-black">Register</h2>
 
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={e => setName(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded text-black"
           required
         />
 
@@ -53,7 +53,7 @@ export default function RegisterPage() {
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded text-black"
           required
         />
 
@@ -62,7 +62,7 @@ export default function RegisterPage() {
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
+          className="w-full mb-4 p-2 border rounded text-black"
           required
         />
 
