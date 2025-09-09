@@ -30,14 +30,14 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16 text-center mt-10">
+      <div className="container mx-auto px-4 py-16 text-center mt-15">
         <motion.h1 
           className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Welcome to HanBill
+          Welcome to <span className='text-blue-500'>HanBill</span>
         </motion.h1>
         <motion.p 
           className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto"

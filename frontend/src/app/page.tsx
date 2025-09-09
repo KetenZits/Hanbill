@@ -7,7 +7,7 @@ import { FiDollarSign, FiUsers, FiClock } from "react-icons/fi";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 mt-10">
         <main className="flex flex-col items-center gap-16">
           {/* Hero Section */}
           <div className="text-center">

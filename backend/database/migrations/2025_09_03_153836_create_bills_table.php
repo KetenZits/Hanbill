@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->string('title'); // ชื่อบิล
-            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade'); // คนสร้างบิล
+            $table->foreignId('owner_id')->constrained('userslogin')->onDelete('cascade'); // คนสร้างบิล
             $table->timestamps();
         });
     }

@@ -9,7 +9,10 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'owner_id'];
+        protected $fillable = [
+        'title',
+        'owner_id'
+    ];
 
     // ✅ คนสร้างบิล
     public function owner()

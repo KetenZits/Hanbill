@@ -1,11 +1,12 @@
 <?php
+
 return [
-    'paths' => ['api/*', 'login', 'register', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:3000'], // frontend ที่ยิงมา
-    'allowed_origins_patterns' => [],
+    'allowed_origins' => ['*'],  // อนุญาตทุก origin ในโหมด development
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
     'max_age' => 0,
-    'supports_credentials' => true,
+    'supports_credentials' => false  // ปิดไว้ก่อนเพื่อทดสอบ
 ];
+

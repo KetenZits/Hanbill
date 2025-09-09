@@ -35,7 +35,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-blue-950 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 container mx-auto bg-blue-900/15 py-10 px-5 ring-2 ring-blue-500/20 rounded-lg backdrop-blur-sm">
+      <div className="w-full max-w-md space-y-8 container mx-auto">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Create your account

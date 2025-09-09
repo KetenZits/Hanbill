@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade');
             $table->string('name');        // ชื่อ item เช่น "เบียร์", "ข้าวมันไก่"
             $table->decimal('price', 10, 2);
-            $table->foreignId('payer_id')->constrained('users')->onDelete('cascade'); // คนจ่าย
+            $table->foreignId('payer_id')->constrained('bill_participants')->onDelete('cascade'); // คนจ่าย
             $table->enum('split_type', ['equal', 'custom'])->default('equal'); // toggle mode
             $table->timestamps();
         });
