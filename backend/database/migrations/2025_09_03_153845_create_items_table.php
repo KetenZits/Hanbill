@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade');
-            $table->string('name');        // ชื่อ item เช่น "เบียร์", "ข้าวมันไก่"
+            // Change this line to reference bill_participants instead of userslogin
+            $table->foreignId('payer_id')->constrained('bill_participants')->onDelete('cascade');
+            $table->string('name');
             $table->decimal('price', 10, 2);
-            $table->foreignId('payer_id')->constrained('bill_participants')->onDelete('cascade'); // คนจ่าย
             $table->enum('split_type', ['equal', 'custom'])->default('equal'); // toggle mode
             $table->timestamps();
         });

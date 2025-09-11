@@ -11,23 +11,24 @@ class Item extends Model
 
     protected $fillable = ['bill_id', 'name', 'price', 'payer_id', 'split_type'];
 
-    // ✅ บิลที่ item สังกัด
-    public function bill()
+    /**
+     * ผู้จ่าย (payer) ของ item นี้
+     */
+    public function paidByParticipant()
     {
-        return $this->belongsTo(Bill::class);
+        return $this->belongsTo(BillParticipant::class, 'payer_id');
     }
 
-    // ✅ คนจ่าย
-    public function payer()
+    /**
+     * ผู้ที่แชร์จ่าย (split between) ของ item นี้
+     */
+    public function splitBetweenParticipants()
     {
-        return $this->belongsTo(User::class, 'payer_id');
-    }
-
-    // ✅ ผู้ร่วมรายการนี้
-    public function participants()
-    {
-        return $this->belongsToMany(User::class, 'item_participants')
-            ->withPivot('amount')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            BillParticipant::class,
+            'item_participants',
+            'item_id',
+            'participant_id'
+        )->withTimestamps();
     }
 }

@@ -15,27 +15,31 @@ export async function login (email: string, password: string){
     }
 }
 
+
 export async function register(name: string, email: string, password: string) {
-  try {
-    const res = await fetch(`${API_URL}/register`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
+    try {
+        const response = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+            }),
+        });
 
-    console.log("Response status:", res.status);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Registration failed');
+        }
 
-    if (!res.ok) {
-      const errData = await res.text(); // อ่านเป็น text จะได้เห็น raw error
-      console.error("Register raw error:", errData);
-      throw new Error("Register failed");
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Register API error:', error);
+        throw error;
     }
-
-    return res.json();
-  } catch (err) {
-    console.error("Register API error:", err);
-    throw err;
-  }
 }

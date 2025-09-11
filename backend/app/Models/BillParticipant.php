@@ -21,16 +21,6 @@ class BillParticipant extends Model
 
     public function items(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Item::class,
-            'item_participants',
-            'participant_id',
-            'item_id'
-        );
-    }
-
-    public function paidItems(): HasMany
-    {
-        return $this->hasMany(Item::class, 'paid_by');
+        return $this->belongsToMany(Item::class, 'item_participants');
     }
 }

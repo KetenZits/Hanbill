@@ -54,7 +54,7 @@ class BillController extends Controller
                     'bill_id' => $bill->id,
                     'name' => $itemData['name'],
                     'price' => $itemData['amount'],
-                    'payer_id' => $participantIds[$itemData['paidBy']]
+                    'payer_id'  => $participantIds[$itemData['paidBy']],
                 ]);
 
                 // Create item participants (split between)
@@ -84,51 +84,51 @@ class BillController extends Controller
         }
     }
 
-    public function get(int $id)
-    {
-        $bill = Bill::with(['participants', 'items.paidByParticipant', 'items.splitBetweenParticipants'])
-            ->findOrFail($id);
+public function get(int $id)
+{
+    $bill = Bill::with(['participants', 'items.paidByParticipant', 'items.splitBetweenParticipants'])
+        ->findOrFail($id);
 
-        // Calculate each participant's share
-        $participantShares = [];
-        foreach ($bill->participants as $participant) {
-            $participantShares[$participant->id] = [
-                'paid' => 0,
-                'owes' => 0,
-                'net' => 0
-            ];
-        }
+    // Calculate each participant's share
+    $participantShares = [];
+    foreach ($bill->participants as $participant) {
+        $participantShares[$participant->id] = [
+            'paid' => 0,
+            'owes' => 0,
+            'net' => 0
+        ];
+    }
 
-        foreach ($bill->items as $item) {
-            $splitCount = $item->splitBetweenParticipants->count();
-            if ($splitCount > 0) {
-                $shareAmount = $item->amount / $splitCount;
-                
-                // Add amount paid
-                $participantShares[$item->paid_by]['paid'] += $item->amount;
-                
-                // Add amount owed by each participant
-                foreach ($item->splitBetweenParticipants as $participant) {
-                    $participantShares[$participant->id]['owes'] += $shareAmount;
-                }
+    foreach ($bill->items as $item) {
+        $splitCount = $item->splitBetweenParticipants->count();
+        if ($splitCount > 0) {
+            $shareAmount = $item->price / $splitCount;
+
+            // Add amount paid
+            $participantShares[$item->payer_id]['paid'] += $item->price;
+
+            // Add amount owed by each participant
+            foreach ($item->splitBetweenParticipants as $participant) {
+                $participantShares[$participant->id]['owes'] += $shareAmount;
             }
         }
-
-        // Calculate net amount for each participant
-        foreach ($participantShares as &$share) {
-            $share['net'] = $share['paid'] - $share['owes'];
-        }
-
-        return response()->json([
-            'bill' => $bill,
-            'shares' => $participantShares
-        ]);
     }
+
+    // Calculate net amount for each participant
+    foreach ($participantShares as &$share) {
+        $share['net'] = $share['paid'] - $share['owes'];
+    }
+
+    return response()->json([
+        'bill' => $bill,
+        'shares' => $participantShares
+    ]);
+}
 
     public function list()
     {
         $bills = Bill::with('participants')
-            ->where('created_by', auth()->id())
+            ->where('owner_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->get();
 

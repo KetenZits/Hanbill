@@ -13,6 +13,7 @@ export interface BillItem {
   id: string;
   name: string;
   amount: number;
+  price: number;
   paidBy: string;
   splitBetween: string[];
 }

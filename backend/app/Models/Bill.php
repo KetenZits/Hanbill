@@ -9,25 +9,30 @@ class Bill extends Model
 {
     use HasFactory;
 
-        protected $fillable = [
+    protected $fillable = [
         'title',
+        'description',
         'owner_id'
     ];
 
-    // ✅ คนสร้างบิล
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    // ✅ คนที่เข้าร่วมบิล
+    // ลบ relationship เก่านี้ออก!
+    // public function participants()
+    // {
+    //     return $this->belongsToMany(User::class, 'bill_participants')
+    //         ->withTimestamps();
+    // }
+
+    // ใช้แบบใหม่แทน
     public function participants()
     {
-        return $this->belongsToMany(User::class, 'bill_participants')
-            ->withTimestamps();
+        return $this->hasMany(BillParticipant::class);
     }
 
-    // ✅ รายการในบิล
     public function items()
     {
         return $this->hasMany(Item::class);

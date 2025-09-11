@@ -7,6 +7,7 @@ use App\Http\Controllers\BillController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/profile', function (\Illuminate\Http\Request $request) {
         return response()->json([
@@ -15,7 +16,8 @@ Route::middleware('jwt.auth')->group(function () {
         ]);
     });
 
-    // Bill routes
+    
+// Bill routes
     Route::prefix('bills')->group(function () {
         Route::post('/', [BillController::class, 'create']);
         Route::get('/', [BillController::class, 'list']);
