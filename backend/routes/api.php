@@ -16,12 +16,12 @@ Route::middleware('jwt.auth')->group(function () {
         ]);
     });
 
+    // Bill routes
+        Route::prefix('bills')->group(function () {
+            Route::post('/', [BillController::class, 'create']);
+            Route::get('/', [BillController::class, 'list']);
+            Route::get('/{id}', [BillController::class, 'get']);
+            Route::delete('/{id}', [BillController::class, 'delete']);
+        });
     
-// Bill routes
-    Route::prefix('bills')->group(function () {
-        Route::post('/', [BillController::class, 'create']);
-        Route::get('/', [BillController::class, 'list']);
-        Route::get('/{id}', [BillController::class, 'get']);
-        Route::delete('/{id}', [BillController::class, 'delete']);
-    });
 });

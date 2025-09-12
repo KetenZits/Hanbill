@@ -30,7 +30,7 @@ export default function BillsPage() {
 
   const fetchBills = async () => {
     try {
-      const response = await fetch('/api/bills', {
+      const response = await fetch('http://127.0.0.1:8000/api/bills', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
@@ -55,7 +55,7 @@ export default function BillsPage() {
     }
 
     try {
-      const response = await fetch(`/api/bills/${billId}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/bills/${billId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -104,7 +104,7 @@ export default function BillsPage() {
               Manage all your shared expenses in one place
             </p>
             <Link 
-              href="/bills/new" 
+              href="/bills/create" 
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
             >
               <FiPlus size={20} />
@@ -140,7 +140,12 @@ export default function BillsPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+<div className="grid gap-6 max-w-7xl mx-auto" style={{
+  gridTemplateColumns: bills.length === 1 
+    ? 'minmax(300px, 400px)' 
+    : 'repeat(auto-fit, minmax(300px, 1fr))',
+  justifyContent: 'center'
+}}>
               {bills.map((bill) => (
                 <div 
                   key={bill.id} 
@@ -233,7 +238,7 @@ export default function BillsPage() {
             <div className="mt-16 bg-blue-600 dark:bg-blue-700 text-white p-8 rounded-2xl max-w-4xl mx-auto">
               <div className="text-center">
                 <h2 className="text-2xl font-bold mb-4">Your Bill Summary</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="text-3xl font-bold text-blue-100">
                       {bills.length}
@@ -248,14 +253,6 @@ export default function BillsPage() {
                     </div>
                     <div className="text-blue-200">
                       Total Participants
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-blue-100">
-                      ${bills.reduce((sum, bill) => sum + (bill.total_amount || 0), 0).toFixed(2)}
-                    </div>
-                    <div className="text-blue-200">
-                      Total Amount
                     </div>
                   </div>
                 </div>

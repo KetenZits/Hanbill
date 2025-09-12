@@ -20,7 +20,7 @@ export default function Login() {
       const data = await login(email, password);
       if (data?.token) {
         localStorage.setItem('token', data.token);
-        window.location.href = '/dashboard';
+        window.location.href = '/bills';
       } else {
         setError('Invalid email or password');
       }
