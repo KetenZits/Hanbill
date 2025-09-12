@@ -99,6 +99,21 @@ class BillService {
     }
     return error;
   }
+
+  async updateBill(id: number, billData: {
+    title: string;  // เดิม name → แก้เป็น title
+    description: string;
+    participants: Participant[];
+    items: BillItem[];
+  }): Promise<void> {
+    try {
+      await axios.put(`${API_URL}/bills/${id}`, billData, {
+        headers: this.getAuthHeader()
+      });
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
 }
 
 export const billService = new BillService();

@@ -22,6 +22,8 @@ Route::middleware('jwt.auth')->group(function () {
             Route::get('/', [BillController::class, 'list']);
             Route::get('/{id}', [BillController::class, 'get']);
             Route::delete('/{id}', [BillController::class, 'delete']);
+            Route::get('/bills/{id}/edit', [BillController::class, 'edit']);
+            Route::put('/bills/{id}', [BillController::class, 'update']);
         });
     
 });

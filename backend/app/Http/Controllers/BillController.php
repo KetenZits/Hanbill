@@ -172,4 +172,86 @@ public function get(int $id)
             ], 500);
         }
     }
+    public function update(Request $request, int $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            // validate request
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'participants' => 'required|array|min:1',
+                'participants.*.name' => 'required|string|max:255',
+                'participants.*.email' => 'required|email',
+                'items' => 'required|array|min:1',
+                'items.*.name' => 'required|string|max:255',
+                'items.*.amount' => 'required|numeric|min:0',
+                'items.*.paidBy' => 'required|string',
+                'items.*.splitBetween' => 'required|array|min:1'
+            ]);
+
+            $bill = Bill::findOrFail($id);
+
+            // update bill info
+            $bill->update([
+                'title' => $request->name,
+                'description' => $request->description ?? null
+            ]);
+
+            // ลบ participants เดิม + insert ใหม่
+            DB::table('bill_participants')->where('bill_id', $bill->id)->delete();
+            $participantIds = [];
+            foreach ($request->participants as $participant) {
+                $participantId = DB::table('bill_participants')->insertGetId([
+                    'bill_id' => $bill->id,
+                    'name' => $participant['name'],
+                    'email' => $participant['email'],
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+                $participantIds[$participant['id']] = $participantId;
+            }
+
+            // ลบ items เดิม + insert ใหม่
+            DB::table('item_participants')
+                ->whereIn('item_id', function ($query) use ($bill) {
+                    $query->select('id')->from('items')->where('bill_id', $bill->id);
+                })->delete();
+
+            DB::table('items')->where('bill_id', $bill->id)->delete();
+
+            foreach ($request->items as $itemData) {
+                $item = Item::create([
+                    'bill_id' => $bill->id,
+                    'name' => $itemData['name'],
+                    'price' => $itemData['amount'],
+                    'payer_id' => $participantIds[$itemData['paidBy']],
+                ]);
+
+                foreach ($itemData['splitBetween'] as $participantTempId) {
+                    DB::table('item_participants')->insert([
+                        'item_id' => $item->id,
+                        'participant_id' => $participantIds[$participantTempId],
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Bill updated successfully',
+                'bill_id' => $bill->id
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => 'Failed to update bill',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

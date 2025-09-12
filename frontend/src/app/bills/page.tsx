@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FiPlus, FiUsers, FiDollarSign, FiCalendar, FiEye, FiTrash2 } from 'react-icons/fi';
+import { FiPlus, FiUsers, FiDollarSign, FiCalendar, FiEye, FiTrash2, FiEdit2 } from 'react-icons/fi';
 
 interface Participant {
   id: number;
@@ -140,12 +140,12 @@ export default function BillsPage() {
               </Link>
             </div>
           ) : (
-<div className="grid gap-6 max-w-7xl mx-auto" style={{
-  gridTemplateColumns: bills.length === 1 
-    ? 'minmax(300px, 400px)' 
-    : 'repeat(auto-fit, minmax(300px, 1fr))',
-  justifyContent: 'center'
-}}>
+            <div className="grid gap-6 max-w-7xl mx-auto" style={{
+              gridTemplateColumns: bills.length === 1 
+                ? 'minmax(300px, 400px)' 
+                : 'repeat(auto-fit, minmax(300px, 1fr))',
+              justifyContent: 'center'
+            }}>
               {bills.map((bill) => (
                 <div 
                   key={bill.id} 
@@ -157,6 +157,13 @@ export default function BillsPage() {
                       {bill.title}
                     </h3>
                     <div className="flex gap-2 ml-2">
+                      <Link
+                        href={`/bills/${bill.id}/edit`}
+                        className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                        title="View Bill"
+                      >
+                        <FiEdit2 size={16} />
+                      </Link>
                       <Link
                         href={`/bills/${bill.id}`}
                         className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
