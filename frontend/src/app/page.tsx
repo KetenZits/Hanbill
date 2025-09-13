@@ -1,8 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import Image from "next/image";
 import { FiDollarSign, FiUsers, FiClock } from "react-icons/fi";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -46,7 +46,7 @@ export default function Home() {
                 Easy Bill Splitting
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Split bills equally or customize amounts for each person. Perfect for dinners, trips, or household expenses.
+                Split bills equally amounts for each person. Perfect for dinners, trips, or household expenses.
               </p>
             </div>
 
@@ -92,41 +92,8 @@ export default function Home() {
           </div>
 
         </main>
-        
-        {/* Footer */}
-        <footer className="flex gap-[24px] flex-wrap items-center justify-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-600 dark:text-gray-400"
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/file.svg"
-              alt="File icon"
-              width={16}
-              height={16}
-            />
-            Learn
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-600 dark:text-gray-400"
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/window.svg"
-              alt="Window icon"
-              width={16}
-              height={16}
-            />
-            Examples
-          </a>
-        </footer>
       </div>
+      <Footer/>
     </div>
   );
 }

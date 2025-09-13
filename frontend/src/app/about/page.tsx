@@ -2,6 +2,7 @@
 
 import { FiUsers, FiDollarSign, FiPieChart, FiSmartphone } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer';
 
 export default function AboutPage() {
   const features = [
@@ -99,6 +100,7 @@ export default function AboutPage() {
           </a>
         </motion.div>
       </div>
+      <Footer/>
     </div>
   );
 }

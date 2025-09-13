@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FiPlus, FiTrash2 } from 'react-icons/fi';
 import { billService } from '@/lib/services/billService';
+import Footer from '@/app/components/Footer';
 
 interface Participant {
   id: string;
@@ -20,10 +21,9 @@ interface BillItem {
 
 export default function CreateBillPage() {
   const [billName, setBillName] = useState('');
-  const [description, setDescription] = useState('');
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [items, setItems] = useState<BillItem[]>([]);
-  const [newParticipant, setNewParticipant] = useState({ name: '', email: '' });
+  const [newParticipant, setNewParticipant] = useState({ name: ''});
   const [newItem, setNewItem] = useState({
     name: '',
     amount: 0,
@@ -34,12 +34,12 @@ export default function CreateBillPage() {
   const generateId = () => Math.random().toString(36).substr(2, 9);
 
   const addParticipant = () => {
-    if (newParticipant.name && newParticipant.email) {
+    if (newParticipant.name) {
       setParticipants([
         ...participants,
         { ...newParticipant, id: generateId() },
       ]);
-      setNewParticipant({ name: '', email: '' });
+      setNewParticipant({ name: ''});
     }
   };
 
@@ -80,7 +80,6 @@ export default function CreateBillPage() {
     try {
       const billData = {
         name: billName,
-        description,
         participants,
         items,
       };
@@ -121,19 +120,6 @@ export default function CreateBillPage() {
                   placeholder="Enter bill name"
                 />
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Description
-                </label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                  placeholder="Enter bill description"
-                  rows={3}
-                />
-              </div>
             </div>
           </div>
 
@@ -154,17 +140,6 @@ export default function CreateBillPage() {
                     }
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     placeholder="Name"
-                  />
-                </div>
-                <div className="flex-1">
-                  <input
-                    type="email"
-                    value={newParticipant.email}
-                    onChange={(e) =>
-                      setNewParticipant({ ...newParticipant, email: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Email"
                   />
                 </div>
                 <button
@@ -340,6 +315,7 @@ export default function CreateBillPage() {
           </button>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 }

@@ -6,7 +6,6 @@ const API_URL = 'http://127.0.0.1:8000/api';
 export interface Participant {
   id: string;
   name: string;
-  email: string;
 }
 
 export interface BillItem {
@@ -20,7 +19,7 @@ export interface BillItem {
 
 export interface Bill {
   id: number;
-  title: string;
+  name: string;
   description: string;
   totalAmount: number;
   participants: Participant[];
@@ -100,20 +99,6 @@ class BillService {
     return error;
   }
 
-  async updateBill(id: number, billData: {
-    title: string;  // เดิม name → แก้เป็น title
-    description: string;
-    participants: Participant[];
-    items: BillItem[];
-  }): Promise<void> {
-    try {
-      await axios.put(`${API_URL}/bills/${id}`, billData, {
-        headers: this.getAuthHeader()
-      });
-    } catch (error) {
-      throw this.handleError(error);
-    }
-  }
 }
 
 export const billService = new BillService();

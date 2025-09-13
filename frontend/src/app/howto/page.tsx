@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { FiUserPlus, FiLogIn, FiFileText, FiUsers, FiList, FiDollarSign } from 'react-icons/fi';
+import Footer from '../components/Footer';
 
 export default function HowToPage() {
   const steps = [
@@ -18,12 +19,12 @@ export default function HowToPage() {
     {
       icon: <FiFileText className="w-8 h-8" />,
       title: "3. Create a Bill",
-      description: "Start by creating a new bill. Give it a name, date, and description. This could be for a dinner, trip expenses, shared rent, or any other shared costs.",
+      description: "Start by creating a new bill. Give it a name. This could be for a dinner, trip expenses, shared rent, or any other shared costs.",
     },
     {
       icon: <FiUsers className="w-8 h-8" />,
       title: "4. Add Participants",
-      description: "Add the people who will share the bill. You can add their names and contact information. These are the people who will split the expenses with you.",
+      description: "Add the people who will share the bill. You can add their names. These are the people who will split the expenses with you.",
     },
     {
       icon: <FiList className="w-8 h-8" />,
@@ -33,7 +34,7 @@ export default function HowToPage() {
     {
       icon: <FiDollarSign className="w-8 h-8" />,
       title: "6. Assign Split Participants",
-      description: "For each item, select who should share in paying for it. You can split items equally or set custom amounts for each person.",
+      description: "For each item, select who should share in paying for it. You can split items equally for each person.",
     },
   ];
 
@@ -125,26 +126,8 @@ export default function HowToPage() {
             </a>
           </div>
         </motion.div>
-
-        {/* Tips Section */}
-        <motion.div
-          className="mt-16 bg-blue-50 dark:bg-blue-900/30 rounded-xl p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-        >
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            💡 Pro Tips
-          </h3>
-          <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
-            <li>Add a description to your bills to remember what they were for</li>
-            <li>You can split items unequally if needed</li>
-            <li>Keep track of who has paid their share in the bill details</li>
-            <li>Use the search function to find specific bills quickly</li>
-            <li>Export bill summaries to share with your group</li>
-          </ul>
-        </motion.div>
       </div>
+      <Footer/>
     </div>
   );
 }

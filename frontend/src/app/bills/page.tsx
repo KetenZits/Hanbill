@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FiPlus, FiUsers, FiDollarSign, FiCalendar, FiEye, FiTrash2, FiEdit2 } from 'react-icons/fi';
+import Footer from '../components/Footer';
 
 interface Participant {
   id: number;
@@ -93,7 +94,7 @@ export default function BillsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 mt-10">
         <main>
           {/* Header */}
           <div className="text-center mb-12">
@@ -132,7 +133,7 @@ export default function BillsPage() {
                 Create your first bill to start splitting expenses with friends
               </p>
               <Link 
-                href="/bills/new" 
+                href="/bills/create" 
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
               >
                 <FiPlus size={20} />
@@ -157,13 +158,6 @@ export default function BillsPage() {
                       {bill.title}
                     </h3>
                     <div className="flex gap-2 ml-2">
-                      <Link
-                        href={`/bills/${bill.id}/edit`}
-                        className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
-                        title="View Bill"
-                      >
-                        <FiEdit2 size={16} />
-                      </Link>
                       <Link
                         href={`/bills/${bill.id}`}
                         className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
@@ -268,6 +262,7 @@ export default function BillsPage() {
           )}
         </main>
       </div>
+      <Footer/>
     </div>
   );
 }

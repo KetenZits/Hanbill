@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { register } from "../lib/api/auth";
 import Link from 'next/link';
 import { FiMail, FiLock, FiUser, FiUserPlus } from 'react-icons/fi';
+import Footer from '../components/Footer';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -101,23 +102,6 @@ export default function RegisterPage() {
                 minLength={6}
               />
             </div>
-          </div>
-
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            By registering, you agree to our{' '}
-            <Link
-              href="/terms"
-              className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-            >
-              Terms of Service
-            </Link>
-            {' '}and{' '}
-            <Link
-              href="/privacy"
-              className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-            >
-              Privacy Policy
-            </Link>
           </div>
 
           <button

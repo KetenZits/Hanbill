@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { FiDollarSign, FiUsers, FiShare2 } from 'react-icons/fi';
+import Footer from '@/app/components/Footer';
 
 interface Participant {
   id: number;
@@ -20,7 +21,7 @@ interface Item {
 
 interface Bill {
   id: number;
-  title: string;
+  name: string;
   description?: string;
   participants: Participant[];
   items: Item[];
@@ -201,6 +202,7 @@ export default function BillDetailsPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
